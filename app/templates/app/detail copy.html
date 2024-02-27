@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block title %}{% endblock title %}
+
+{% block content %}
+
+<style>
+    .card-img {
+        margin-top: 100px;
+        /* margin-left: 100px; */
+        width: 100%;
+        object-fit: cover;
+    }
+</style>
+
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <!-- <div class="col-md-2 border">
+            Nash
+        </div> -->
+        <div class="col-sm-12 col-md-5 border">
+            <img src="{{item.image.url}}" class="image col-xs-6 col-sm-12 col-lg-12 text-sm-center card-img" alt="">
+        </div>
+        <div class="col-sm-12 col-md-7 border">
+            <div class="p-5">
+                <div class="fw-bold fs-3"><span>{{item.brand}}</span></div>
+                <div class="text-danger fw-bold"><span>Kshs. {{item.discounted_price}}</span></div>
+                <br>
+                <hr>
+                <div>
+                    <p class="fw-bold">Product Description:</p>
+                    <small>{{item.description}}</small>
+                </div>
+                <hr>
+                <div>
+                    <p class="fw-bold">Color: <span class="fw-light"> {{item.color}}</span> </p>
+                </div>
+                <div>
+                    <p class="fw-bold">Size: <span class="fw-light"> {{item.size}}</span> </p>
+                </div>
+                <div>
+                    <span class="h5 text-danger"> <i class="bi bi-heart"></i></span>
+                    <span> - Save for later</span>
+                </div><br>
+                <div>
+                    <a href="" class="btn btn-sm btn-success">Buy Now</a>
+                    <form action="{% url 'app:add_to_cart' %}" method="GET" class="d-inline">
+                        <input type="hidden" name="prod_id" value="{{ item.id }}" />
+                        <button type="submit" class="btn btn-primary btn-sm">Add to Cart</button>
+                    </form>
+
+
+                </div>
+            </div>
+            <br><br>
+        </div>
+
+    </div>
+</div>
+{% endblock content %}
+
+
+{% for product in new_arrivals|slice:":4" %}
+<div class="card m-2" style="width: 18rem;">
+    <span class="d-flex badge btn-sm bg-primary rounded-pill m-2" style="width: 40px;">14%</span><br>
+    <div class="text-center">
+        <img class="card-img-top card-img" src="{{product.image.url}}" alt="Card image cap">
+    </div>
+    <div class="card-body">
+        <p class="card-text bold-text">{{product.brand}}</p>
+        <div class="d-flex mb-1">
+            <span class="card-text text-danger h5 fw-bold">{{product.discounted_price}}</span>
+            <span class="card-text mx-3"><del>{{product.price}}</del></span>
+        </div>
+        <a href="#" class="btn btn-outline-primary rounded-pill col-md-12">Add to Cart</a>
+    </div>
+</div>
+{% endfor %}

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block title %}{% endblock title %}
+
+{% block content %}
+
+<style>
+    .card-img {
+        margin-top: 100px;
+        /* margin-left: 100px; */
+        width: 100%;
+        object-fit: cover;
+    }
+</style>
+
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <!-- <div class="col-md-2 border">
+            Nash
+        </div> -->
+        <div class="col-sm-12 col-md-5 border">
+            <img src="{{item.image.url}}" class="image col-xs-6 col-sm-12 col-lg-12 text-sm-center card-img" alt="">
+        </div>
+        <div class="col-sm-12 col-md-7 border">
+            <div class="p-5">
+                <div class="fw-bold fs-3"><span>{{item.brand}}</span></div>
+                <div class="text-danger fw-bold"><span>Kshs. {{item.discounted_price}}</span></div>
+                <br>
+                <hr>
+                <div>
+                    <p class="fw-bold">Product Description:</p>
+                    <small>{{item.description}}</small>
+                </div>
+                <hr>
+                <div>
+                    <p class="fw-bold">Color: <span class="fw-light"> {{item.color}}</span> </p>
+                </div>
+                <div>
+                    <p class="fw-bold">Size: <span class="fw-light"> {{item.size}}</span> </p>
+                </div>
+                <div>
+                    <span class="h5 text-danger"> <i class="bi bi-heart"></i></span>
+                    <span> - Save for later</span>
+                </div><br>
+                <div>
+                    <a href="" class="btn btn-sm btn-success">Buy Now</a>
+                    <form action="{% url 'app:add_to_cart' %}" method="GET" class="d-inline">
+                        <input type="hidden" name="prod_id" value="{{ item.id }}" />
+                        <button type="submit" class="btn btn-primary btn-sm atc">Add to Cart</button>
+                    </form>
+
+
+                </div>
+            </div>
+            <br><br>
+        </div>
+
+    </div>
+</div>
+
+
+
+{% endblock content %}
