@@ -1,0 +1,316 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block title %}Home{% endblock title %}
+{% block content %}
+<style>
+    .bold-text {
+        font-weight: 800;
+    }
+
+    .card-img {
+        width: 40%;
+        height: 100px;
+        object-fit: cover;
+    }
+
+    .borderless {
+        border: none;
+    }
+</style>
+<div class="container mt-3">
+    <div class="row">
+        <!-- <div class="col-sm-12 col-md-3 col"> -->
+        <div class="col-md-3 col">
+            <ul class="list-group">
+                <li class="list-group-item active" aria-current="true">All Categories</li>
+                {% for product in main_category %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                    <a href="{% url 'app:category' product.main_category %}"
+                        style="color: black; text-decoration: none;">{{product.main_category}}</a>
+                    <!-- <span class="badge bg-primary rounded-pill">{{main_category_count}}</span> -->
+
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-9 h-100">
+            {% include 'slideshow_component.html' %}
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+        <!-- <div class="d-flex"> -->
+        <div class="card borderless text-center col-md-3">
+            <div class="card-body">
+                <h3><i class="bi bi-credit-card"></i></h3>
+                <h5 class="card-title fw-bold">Payment only Online</h5>
+                <small class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. </small>
+            </div>
+        </div>
+
+        <div class="card borderless text-center col-md-3">
+            <div class="card-body">
+                <h3><i class="bi bi-box"></i></h3>
+                <h5 class="card-title fw-bold">New stocks and sales</h5>
+                <small class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. </small>
+            </div>
+        </div>
+        <div class="card borderless text-center col-md-3">
+            <div class="card-body">
+                <h3><i class="bi bi-check-circle"></i></h3>
+                <h5 class="card-title fw-bold">Quality assurance</h5>
+                <small class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. </small>
+            </div>
+        </div>
+        <div class="card borderless text-center col-md-3 ">
+            <div class="card-body">
+                <h3><i class="bi bi-heart"></i></h3>
+                <h5 class="card-title fw-bold">Delivery from 1 hour</h5>
+                <small class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. </small>
+            </div>
+        </div>
+        <!-- </div> -->
+    </div>
+    <hr>
+    <br>
+
+    <div class="row center">
+        <!-- <div class="d-flex"> -->
+        <div class="card bg-dark text-white m-4 col-sm-11 col-md-3">
+            <div class="card-body">
+                <small class="card-text">Only This Week</small>
+                <p class="card-title fs-5 fw-bold">Quality eggs at an <br>affordable price</p>
+                <small class="card-text">Eat one every day</small><br><br>
+                <a href="#" class="btn btn-sm btn-primary rounded-pill">Shop Now</a>
+            </div>
+        </div>
+        <div class="card bg-dark text-white m-4 col-sm-11 col-md-3">
+            <div class="card-body">
+                <small class="card-text">Only This Week</small>
+                <p class="card-title fs-5 fw-bold">Snacks that nourishes <br>our mind and body</p>
+                <small class="card-text">Shine the morning</small><br><br>
+                <a href="#" class="btn btn-sm btn-primary rounded-pill">Shop Now</a>
+            </div>
+        </div>
+        <div class="card bg-dark text-white m-4 col-sm-11 col-md-3">
+            <div class="card-body">
+                <small class="card-text">Only This Week</small>
+                <p class="card-title fs-5 fw-bold">Unbeatable quality, <br>Unbeatable prices</p>
+                <small class="card-text">Only this week. Don't miss</small><br><br>
+                <a href="#" class="btn btn-sm btn-primary rounded-pill">Shop Now</a>
+            </div>
+        </div>
+        <!-- </div> -->
+    </div>
+    <br><br>
+    <span class="h4 fw-bold">New Arrivals |</span><span>Don't miss this opportunity at a special discount Up</span>
+    <div class="row mt-3">
+        {% for product in new_arrivals|slice:":4" %}
+        <div class="card m-2 col-xs-5 col-sm-5 col-md-3 col-6">
+            <span class="d-flex badge btn-sm bg-primary rounded-pill m-2" style="width: 40px;">14%</span><br>
+            <div class="text-center">
+                <img class="card-img-top card-img" src="{{product.image.url}}" alt="Card image cap">
+            </div>
+            <div class="card-body">
+                <small class="card-text bold-text">{{product.brand}}</small>
+                <div class="d-flex mb-1">
+                    <span class="card-text text-danger h5 fw-bold">{{product.discounted_price}}</span>
+                    <span class="card-text mx-3"><del>{{product.price}}</del></span>
+                </div>
+                <!-- <form action="{% url 'app:add_to_cart' %}" method="GET" class="d-inline">
+                    <input type="hidden" name="prod_id" value="{{ product.id }}" />
+                    <button type="submit" class="btn btn-outline-primary rounded-pill col-md-12">Add to Cart</button>
+                </form> -->
+
+                <form method="POST" class="d-inline atc-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="prod_id" value="{{ product.id }}" />
+                    <button type="button" onclick="addToCart('{{ product.id }}')" class="btn btn-primary btn-sm atc">Add to Cart</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <br><br>
+    <span class="h4 fw-bold">Products |</span><span>Don't miss the current offers until the end of February</span>
+    <div class="row mt-3">
+        {% for product in product%}
+        <div class="card m-2 col-xs-4 col-sm-4 col-md-3 col-4">
+            <span class="d-flex badge btn-sm bg-primary rounded-pill m-2" style="width: 40px;">14%</span><br>
+            <div class="text-center">
+                <img class="card-img-top card-img" src="{{product.image.url}}" alt="Card image cap">
+            </div>
+            <div class="card-body">
+                <p class="card-text bold-text">{{product.name}}</p>
+                <div class="d-flex mb-1">
+                    <span class="card-text text-danger h5 fw-bold">{{product.discounted_price}}</span>
+                    <span class="card-text mx-3"><del>{{product.price}}</del></span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <br>
+    <hr><br>
+
+    <div class="row">
+        <div class="card borderless text-center m-4 col-sm-11 col-md-3">
+            <div class="card-body">
+                <h3><i class="bi bi-truck"></i></h3>
+                <h5 class="card-title fw-bold">FREE AND FAST DELIVERY</h5>
+                <small class="card-text">Free delivery for all orders over Kshs.10000 </small>
+            </div>
+        </div>
+        <div class="card borderless text-center m-4 col-sm-11 col-md-3">
+            <div class="card-body">
+                <h3><i class="bi bi-phone"></i></h3>
+                <h5 class="card-title fw-bold">24/7 CUSTOMER SERVICE</h5>
+                <small class="card-text">Friendly 24/7 customer support</small>
+            </div>
+        </div>
+        <div class="card borderless text-center m-4 col-sm-11 col-md-3">
+            <div class="card-body">
+                <h3><i class="bi bi-shield"></i></h3>
+                <h5 class="card-title fw-bold">MONEY BACK GUARANTEE</h5>
+                <small class="card-text">We return money within 30 days </small>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <span class="h4 fw-bold">Any other inquiry |</span><span>Don't miss this opportunity at a special discount</span>
+    <br><br>
+    <div class="row border p-2 d-flex justify-content-between">
+        <div class="col-md-8 p-2">
+            <img src="{% static 'images/banner/b1.jpg' %}" class="d-block w-100" alt="...">
+        </div>
+        <div class="col-md-4 p-3 shadow rounded>
+            <div class=" col-md-6 offset-3">
+            <form action="" method="post">
+                <div class="text-center form-floating">
+                    <h3 class="fw-bold">Send quote to suppliers</h3>
+                    <hr>
+                </div>
+                {{form.as_p}}
+                <input type="submit" value="Send Inquiry" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+    <br><br>
+    <span class="h4 fw-bold">Browse By Category |</span><span>Don't miss this opportunity at a special discount</span>
+    <div class="row mt-3">
+        <div class="card m-2" style="width: 18rem;">
+            <br>
+            <div class="text-center">
+                <img class="card-img-top card-img" src="{% static 'images/kulfi.png' %}" alt="Card image cap">
+            </div>
+            <div class="card-body">
+                <p class="card-text bold-text">Electronics</p>
+            </div>
+        </div>
+        <div class="card m-2" style="width: 18rem;">
+            <br>
+            <div class="text-center">
+                <img class="card-img-top card-img" src="{% static 'images/icbars.png' %}" alt="Card image cap">
+            </div>
+            <div class="card-body">
+                <p class="card-text bold-text">Home and Living</p>
+            </div>
+        </div>
+        <div class="card m-2" style="width: 18rem;">
+            <br>
+            <div class="text-center">
+                <img class="card-img-top card-img" src="{% static 'images/milk-shake-chocolate.png' %}"
+                    alt="Card image cap">
+            </div>
+            <div class="card-body">
+                <p class="card-text bold-text">Books and Stationery</p>
+            </div>
+        </div>
+        <div class="card m-2" style="width: 18rem;">
+            <br>
+            <div class="text-center">
+                <img class="card-img-top card-img" src="{% static 'images/mozzarellacheese.png' %}"
+                    alt="Card image cap">
+            </div>
+            <div class="card-body">
+                <p class="card-text bold-text">Sports and Outdoor</p>
+            </div>
+        </div>
+        <div class="card m-2" style="width: 18rem;">
+            <br>
+            <div class="text-center">
+                <img class="card-img-top card-img" src="{% static 'images/standardized-milk.png' %}"
+                    alt="Card image cap">
+            </div>
+            <div class="card-body">
+                <p class="card-text bold-text">Beauty and Cosmetics</p>
+            </div>
+        </div>
+        <div class="card m-2" style="width: 18rem;">
+            <br>
+            <div class="text-center">
+                <img class="card-img-top card-img" src="{% static 'images/tonemilk.png' %}" alt="Card image cap">
+            </div>
+            <div class="card-body">
+                <p class="card-text bold-text">Toys and Games</p>
+            </div>
+        </div>
+        <div class="card m-2" style="width: 18rem;">
+            <br>
+            <div class="text-center">
+                <img class="card-img-top card-img" src="{% static 'images/curd-premium.png' %}" alt="Card image cap">
+            </div>
+            <div class="card-body">
+                <p class="card-text bold-text">Home and Improvements</p>
+            </div>
+        </div>
+        <div class="card m-2" style="width: 18rem;">
+            <br>
+            <div class="text-center">
+                <img class="card-img-top card-img" src="{% static 'images/buffalo-ghee.png' %}" alt="Card image cap">
+            </div>
+            <div class="card-body">
+                <p class="card-text fw-bold bold-text">Home Improvement</p>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    function addToCart(prodId) {
+        // Construct the JSON data
+        var jsonData = {
+            "hello": 0,
+            "product_id": prodId,
+            "quantity": 1,
+        };
+        // Perform a POST request using fetch
+        fetch("http://127.0.0.1:8000/add-to-cart/", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: JSON.stringify(jsonData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle success response if needed
+            console.log(data);
+        })
+        .catch(error => {
+            console.log(JSON.parse(JSON.stringify(jsonData)));
+            // Handle error if needed
+            console.error(error);
+        });
+    }
+</script>
+{% endblock content %}
