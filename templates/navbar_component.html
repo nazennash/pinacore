@@ -10,9 +10,19 @@
         background-color: transparent;
         border: none;
     }
+
+    .badge-size {
+        font-size: 0.7rem;
+        color: white;
+    }
+
+    .cart-link {
+        display: flex;
+        align-items: center;
+    }
 </style>
 
-<nav class="navbar navbar-expand-sm navbar-light bg-light border-top">
+<nav class="navbar navbar-expand-md navbar-light bg-light border-top">
     <div class="container">
         <a class="navbar-brand fw-bold" href="/">Pinacore</a>
 
@@ -40,10 +50,9 @@
                     <a class="nav-link" href="#">Favourites</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{% url 'app:cart' %}" class="nav-link">
-                        <i class="bi bi-cart"></i> Cart (<span id="cart-count">0</span>)
+                    <a href="{% url 'app:cart' %}" class="nav-link cart-link">
+                        Cart:<span class="badge badge-size bg-primary" id="cart-count"> 0</span>
                     </a>
-
                 </li>
                 {% if request.user.is_authenticated %}
                 <li class="nav-item">
