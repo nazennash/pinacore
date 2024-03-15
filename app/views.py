@@ -45,13 +45,24 @@ def category(request, main_category):
 def add_to_cart(request):
     user = request.user
     product_id = request.GET.get('prod_id')
-    product = Product.objects.get(id = product_id)
-    Cart(user=user, product=product).save()
-    return redirect('app:showCart')
+    product = Product.objects.get(id=product_id)
+
+    # Check if the item is already in the cart
+    cart_item = Cart.objects.filter(user=user, product=product).first()
+    if cart_item:
+        # If it is, just update the quantity
+        cart_item.quantity += 1
+        cart_item.save()
+    else:
+        # If not, create a new cart entry
+        Cart(user=user, product=product, quantity=1).save()
+
+    return redirect('app:cart')
+
     # return render(request, "app/addtocart.html")
 
 
-def show_cart(request):
+def cart_view(request):
     user = request.user
     cart = Cart.objects.filter(user=user)
 
@@ -65,6 +76,13 @@ def show_cart(request):
 
     # context = {'cart':cart, 'amount':amount, 'totalamount':totalamount}
     return render(request, 'app/addtocart.html', locals())
+
+def get_cart_count(request):
+    if request.user.is_authenticated:
+        cart_count = Cart.objects.filter(user=request.user).count()
+        return JsonResponse({'cart_count': cart_count})
+    else:
+        return JsonResponse({'cart_count': 0})
 
 def plus_cart(request):
     if request.method == 'GET':
@@ -130,6 +148,17 @@ def remove_cart(request):
             'totalamount':totalamount
         }
         return JsonResponse(data)
+    
+
+# def remove_cart(request):
+#     if request.method == 'GET':
+#         prod_id = request.GET.get('prod_id')
+        
+#         cart_item = get_object_or_404(Cart, product_id=prod_id, user=request.user)
+        
+#         cart_item.delete()
+        
+#         return JsonResponse({'success': True})
 
 
 

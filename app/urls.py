@@ -13,10 +13,13 @@ urlpatterns = [
     path('category/<str:main_category>/', views.category, name='category'),
 
     path('add-to-cart/', views.add_to_cart, name='add_to_cart'),
-    path('cart/', views.show_cart, name='showCart'),
+    # path('cart/', views.cart_view, name='showCart'),
+    path('cart/', views.cart_view, name='cart'), 
+    path('get_cart_count/', views.get_cart_count, name='get_cart_count'),
 
-    path('pluscart/', views.plus_cart),
-    path('minuscart/', views.minus_cart),
-    path('removecart/', views.remove_cart),
+
+    path('plus_cart/', views.plus_cart, name='plus_cart'),
+    path('minus_cart/', views.minus_cart, name='minus_cart'),
+    path('remove_cart/', views.remove_cart, name='remove_cart'),
 
 ]

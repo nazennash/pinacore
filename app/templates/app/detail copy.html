@@ -49,7 +49,7 @@
                     <a href="" class="btn btn-sm btn-success">Buy Now</a>
                     <form action="{% url 'app:add_to_cart' %}" method="GET" class="d-inline">
                         <input type="hidden" name="prod_id" value="{{ item.id }}" />
-                        <button type="submit" class="btn btn-primary btn-sm">Add to Cart</button>
+                        <button type="submit" class="btn btn-primary btn-sm" id="add-cart">Add to Cart</button>
                     </form>
 
 

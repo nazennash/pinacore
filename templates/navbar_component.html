@@ -8,36 +8,9 @@
 
     .transparent-background {
         background-color: transparent;
-        border:none;
+        border: none;
     }
 </style>
-<nav class="navbar navbar-expand-sm navbar-light bg-light">
-    <div class="container">
-        <div class="">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex ">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">My Account</a>
-                </li>
-            </ul>
-        </div>
-        <div class="">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex ">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">English</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Order Tracking</a>
-                </li>
-
-            </ul>
-        </div>
-    </div>
-</nav>
-
-</nav>
 
 <nav class="navbar navbar-expand-sm navbar-light bg-light border-top">
     <div class="container">
@@ -48,20 +21,18 @@
             aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
-            <form action="{% url 'app:index' %}" class="form-control collapse navbar-collapse" id="drop" style="background-color: transparent !important; border: none !important;">
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <form action="{% url 'app:index' %}" class="form-control"
+                style="background-color: transparent !important; border: none !important;">
                 <div class="input-group col-sm-2">
                     <div class="input-group-text">Search</div>
                     <input class="form-control" type="search" aria-label="Search" name="q">
-                    <!-- <div class="input-group-text">Search</div> -->
                     <a href="" class="btn btn-primary"><i class="bi bi-search"></i></a>
-                    <!-- <img src="{% static 'images/nav/favourite.png' %}" class=" btn btn-success nav-img"> -->
                 </div>
             </form>
-            
 
-        <div class="collapse navbar-collapse" id="drop">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex ">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link" href="#">Messages</a>
                 </li>
@@ -69,9 +40,10 @@
                     <a class="nav-link" href="#">Favourites</a>
                 </li>
                 <li class="nav-item">
-                    <button id='cart' type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Bottom popover">
-                        Cart
-                      </button>
+                    <a href="{% url 'app:cart' %}" class="nav-link">
+                        <i class="bi bi-cart"></i> Cart (<span id="cart-count">0</span>)
+                    </a>
+
                 </li>
                 {% if request.user.is_authenticated %}
                 <li class="nav-item">
@@ -87,9 +59,8 @@
     </div>
 </nav>
 
-
 <script>
-    $(document).ready(function(){
-    $('[data-toggle="popover"]').popover();
-  });
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+    });
 </script>
