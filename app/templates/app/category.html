@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
-
 {% load static %}
-
 
 {% block title %}Category{% endblock title %}
 
 {% block content %}
+
 <style>
     .bold-text {
         font-weight: 800;
     }
-    .card-img{
-        width: 15%;
+
+    .card-img {
+        width: 30%;
         /* height: 130px; */
         object-fit: cover;
     }
@@ -19,64 +19,58 @@
 
 <div class="container mt-5 mb-5">
     <div class="row">
-        <div class="col-sm-4 col-md-3">
-            <ul class="list-group">
-                <li class="list-group-item active" aria-current="true">Main Categories</li>
+        <div class="col-sm-12 col-md-4 col-lg-3">
+            <div class="list-group mb-4">
+                <a href="#" class="list-group-item list-group-item-action active" aria-current="true">Main
+                    Categories</a>
                 {% for value in sub_category %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a href="" style="color: black; text-decoration: none;">{{value.sub_category}}</a>
-                </li>
+                <a href="#" class="list-group-item list-group-item-action">{{value.sub_category}}</a>
                 {% endfor %}
-            </ul>
-            <hr>
-            <ul class="list-group">
-                <li class="list-group-item active" aria-current="true">Categories</li>
+            </div>
+            <div class="list-group mb-4">
+                <a href="#" class="list-group-item list-group-item-action active" aria-current="true">Categories</a>
                 {% for value in sub_type_category %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a href="#" style="color: black; text-decoration: none;">{{value.sub_type_category}}</a>
-                </li>
+                <a href="#" class="list-group-item list-group-item-action">{{value.sub_type_category}}</a>
                 {% endfor %}
-            </ul>
-            <hr>
-            <ul class="list-group">
-                <li class="list-group-item active" aria-current="true">Sub-Categories</li>
+            </div>
+            <div class="list-group mb-4">
+                <a href="#" class="list-group-item list-group-item-action active" aria-current="true">Sub-Categories</a>
                 {% for value in product %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a href="#" style="color: black; text-decoration: none;">{{value.name}}</a>
-                </li>
+                <a href="#" class="list-group-item list-group-item-action">{{value.name}}</a>
                 {% endfor %}
-            </ul>
-            <hr>
-            <ul class="list-group">
-                <li class="list-group-item active" aria-current="true">Brand</li>
+            </div>
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action active" aria-current="true">Brand</a>
                 {% for value in brand %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a href="#" style="color: black; text-decoration: none;">{{value.brand}}</a>
-                </li>
+                <a href="#" class="list-group-item list-group-item-action">{{value.brand}}</a>
                 {% endfor %}
-            </ul>
+            </div>
         </div>
-        <div class="col-sm-8 col-md-9 border-start">
+        <div class="col-sm-12 col-md-8 col-lg-9">
             <div class="mb-2">
                 <small class="">{{product_count}} items in <span class="fw-bold">{{main_category}}</span></small>
             </div>
             {% for product in product %}
-            <div class="card mt-3">
-                <div class="d-flex">
-                    <img class="card-img-top card-img col-sm-12 col-md-2 p-3 m-auto" src="{{product.image.url}}" alt="Card image cap">
-                    <div class="card-body">
-                        <small class="card-text fw-bold">{{product.brand}}</small><br>
-                        <small class="card-text text-danger bold-text">{{product.discounted_price}}</small>
-                        <small class="card-text"><del>{{product.price}}</del></small><br>
-                        <small class="card-text">{{product.description}}</small><br>
-                        <a href="{% url 'app:detail' product.id %}" class="text-decoration-none">View details</a>
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-sm-6 col-md-4 col-lg-2 m-auto text-center">
+                        <img src="{{product.image.url}}" class="img-fluid rounded" alt="Product Image">
+                    </div>
+
+                    <div class="col-sm-12 col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title bold-text fs-6">{{product.brand}}</h5>
+                            <small class="card-text text-danger bold-text">Price:
+                                {{product.discounted_price}}</small><br>
+                            <small class="card-text"><del>{{product.price}}</del></small><br>
+                            <small class="card-text">{{product.description}}</small><br>
+                            <a href="{% url 'app:detail' product.id %}" class="btn btn-primary btn-sm">View details</a>
+                        </div>
                     </div>
                 </div>
             </div>
             {% endfor %}
-            <br>
         </div>
     </div>
 </div>
-
 {% endblock content %}

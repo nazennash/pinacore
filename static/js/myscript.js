@@ -84,9 +84,7 @@ $(document).ready(function () {
         removeItemFromCart(prod_id);
     });
 
-    // Disable caching for AJAX requests
     $.ajaxSetup({ cache: false });
 
-    // Initial update of cart count
     updateCartCount();
 });

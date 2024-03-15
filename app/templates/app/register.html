@@ -2,19 +2,21 @@
 {% load static %}
 
 {% block content %}
-  <div>
-    <div class="container">
-      <div class="row my-5">
-        <div class="col-sm-6 m-auto">
-          <form action="" method="post" class="shadow p-5">
-            {% csrf_token %} {% for fm in form %}
-              {{ fm.label_tag }}{{ fm }}
-            {% endfor %}
-            <br />
-            <input type="submit" value="Submit" class="btn btn-primary" />
-          </form>
-        </div>
+
+
+<div>
+  <div class="container">
+    <div class="row my-5">
+      <div class="col-sm-6 m-auto">
+        <form action="" method="post" class="shadow p-5">
+          {% csrf_token %} {% for fm in form %}
+          {{ fm.label_tag }}{{ fm }}
+          {% endfor %}
+          <br />
+          <input type="submit" value="Submit" class="btn btn-primary" />
+        </form>
       </div>
     </div>
   </div>
+</div>
 {% endblock %}
