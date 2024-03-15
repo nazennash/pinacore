@@ -87,7 +87,7 @@ def get_cart_count(request):
 def plus_cart(request):
     if request.method == 'GET':
         prod_id = request.GET['prod_id']
-        c = Cart.objects.get(Q(Product=prod_id) & Q(user=request.user))
+        c = Cart.objects.get(Q(product=prod_id) & Q(user=request.user))
         c.quantity+=1
         c.save()
         user = request.user
@@ -109,7 +109,7 @@ def plus_cart(request):
 def minus_cart(request):
     if request.method == 'GET':
         prod_id = request.GET['prod_id']
-        c = Cart.objects.get(Q(Product=prod_id) & Q(user=request.user))
+        c = Cart.objects.get(Q(product=prod_id) & Q(user=request.user))
         c.quantity-=1
         c.save()
         user = request.user
@@ -131,7 +131,7 @@ def minus_cart(request):
 def remove_cart(request):
     if request.method == 'GET':
         prod_id = request.GET['prod_id']
-        c = Cart.objects.get(Q(Product=prod_id) & Q(user=request.user))
+        c = Cart.objects.get(Q(product=prod_id) & Q(user=request.user))
         c.delete()
         user = request.user
         cart = Cart.objects.filter(user=user)
